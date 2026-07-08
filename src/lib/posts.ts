@@ -29,7 +29,7 @@ export function getAllPosts(): PostMeta[] {
     .filter((f) => f.endsWith(".md"))
     .map((f) => readPostFile(f))
     .filter((p): p is Post => p !== null && !p.draft)
-    .sort((a, b) => (a.date < b.date ? 1 : -1))
+    .sort((a, b) => (a.date === b.date ? (a.slug < b.slug ? 1 : -1) : a.date < b.date ? 1 : -1))
     .map(({ content: _content, ...meta }) => meta);
 }
 

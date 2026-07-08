@@ -20,7 +20,7 @@ export interface PublishResult {
 
 const SLUG_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 
-/** Authorization 헤더 검증 — timing-safe 비교 (키 길이까지 숨긴다) */
+/** Authorization 헤더 검증 — timing-safe 비교 (길이 일치 시 상수시간) */
 export function verifyApiKey(header: string | null): boolean {
   const expected = process.env.PUBLISH_API_KEY;
   if (!expected) return false;
@@ -87,6 +87,7 @@ function validate(input: unknown): ValidInput {
 
 function makeSlug(title: string, explicit?: string): string {
   if (explicit) return explicit;
+  const hadNonAscii = /[^\x00-\x7f]/.test(title);
   const ascii = title
     .toLowerCase()
     .normalize("NFKD")
@@ -94,7 +95,7 @@ function makeSlug(title: string, explicit?: string): string {
     .trim()
     .replace(/[\s_]+/g, "-")
     .replace(/-+/g, "-");
-  if (SLUG_RE.test(ascii) && ascii.length >= 3) return ascii;
+  if (!hadNonAscii && SLUG_RE.test(ascii) && ascii.length >= 3) return ascii;
   const { compact, hhmm } = kstParts();
   return `post-${compact}-${hhmm}`;
 }

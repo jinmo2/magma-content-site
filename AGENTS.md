@@ -4,7 +4,7 @@
 
 ## 무엇 하는 저장소인가
 
-MAGMA 콘텐츠 사업부의 회사 홈 + 블로그. Next.js 15 App Router + Tailwind v4.
+MAGMA 콘텐츠 사업부의 회사 홈 + 블로그. Next.js 16 App Router + Tailwind v4.
 콘텐츠는 `content/posts/*.md` 파일이 진실원천이고 DB 는 없습니다.
 페이지는 전부 빌드 타임 정적 생성(SSG), 서버 코드는 발행 API 하나입니다.
 
