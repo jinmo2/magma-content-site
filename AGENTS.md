@@ -4,9 +4,10 @@
 
 ## 무엇 하는 저장소인가
 
-MAGMA 콘텐츠 사업부의 회사 홈 + 블로그. Next.js 16 App Router + Tailwind v4.
-콘텐츠는 `content/posts/*.md` 파일이 진실원천이고 DB 는 없습니다.
-페이지는 전부 빌드 타임 정적 생성(SSG), 서버 코드는 발행 API 하나입니다.
+MAGMA(3040 남성 패션 브랜드)의 회사소개 사이트. Next.js + Tailwind v4.
+3탭 — 홈(모션그래픽 히어로) · 블로그(패션 글) · 실적(데이터 리포트).
+콘텐츠는 `content/posts`(블로그)·`content/reports`(실적) 마크다운이 진실원천,
+페이지는 빌드 타임 정적 생성, 서버 코드는 발행 API 하나입니다.
 
 ## 수정 지점 지도
 
@@ -17,13 +18,16 @@ MAGMA 콘텐츠 사업부의 회사 홈 + 블로그. Next.js 16 App Router + Tai
 | 글 | `content/posts/*.md` (또는 발행 API) |
 | 히어로 영역·모션 | `src/components/Hero.tsx` |
 | CTA 버튼 | `src/components/CtaSlot.tsx` + `site.config.ts` 의 `cta` |
+| 히어로 배경 영상 | `src/components/HeroMedia.tsx` (이 파일 하나) |
+| 룩북 이미지 자리 | `src/components/ImageSlot.tsx` 를 쓰는 곳 |
 
 ## 지켜야 할 계약 (바꾸지 말 것)
 
 1. **frontmatter 필드명**: `title` `description` `date` `tags` `thumbnail` `draft` —
    외부 도구(oh-my-wiki 내보내기·bluekiwi 발행 워크플로우)가 이 이름에 의존합니다.
 2. **slug**: 파일명 = slug, `^[a-z0-9]+(-[a-z0-9]+)*$` (한글·대문자·공백 금지).
-3. **발행 API 계약**: `POST /api/posts` 의 요청/응답 형태 (README 참조).
+3. **발행 API 계약**: `POST /api/posts` · `collection: "posts"(기본)|"reports"` ·
+   응답 `{collection, slug, url, mode, commitUrl?}` (README 참조).
 4. **색상은 토큰 경유만**: 컴포넌트에 hex 를 직접 쓰지 말고 `tokens.css` 변수를
    참조하는 유틸리티(`bg-canvas` `text-ink` `text-primary` `text-accent` 등)를 사용.
 5. **의존성 추가 금지가 기본값**: 새 패키지가 필요하면 먼저 이유를 설명하고 승인받을 것.
@@ -51,3 +55,6 @@ MAGMA 콘텐츠 사업부의 회사 홈 + 블로그. Next.js 16 App Router + Tai
 - `CtaSlot` — 6.6 에서 구현. `site.config.ts` 의 `cta.enabled` 가 스위치
 - `DESIGN.md` + `tokens.css` — 6.7 에서 통째로 교체 (문서 먼저, 코드 다음)
 - `Hero.tsx` — 6.7 에서 모션 추가 (구조 변경 없이 이 파일만)
+- `HeroMedia.tsx` — 6.7 에서 <video> 배경 영상 (지금은 브랜드 그라디언트)
+- `content/reports/` — 7.4 실적 리포트 (발행 API collection:"reports")
+- 실적 상세의 대시보드 임베드 — 7.5 BI 대시보드 <iframe> 자리

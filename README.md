@@ -1,11 +1,10 @@
 # magma-content-site
 
-MAGMA 콘텐츠 사업부의 회사 홈 + 블로그 스타터입니다.
-인프런 「Hermes × Codex 가상 오피스」 섹션 6 실습에서 이 저장소를 기반으로
-콘텐츠 사업부 사이트를 함께 키워 갑니다.
+MAGMA(3040 남성 패션 브랜드)의 회사소개 사이트 스타터입니다.
+인프런 「Hermes × Codex 가상 오피스」의 섹션 6(콘텐츠 블로그)과
+섹션 7(데이터 실적 보고)이 이 저장소 위에서 함께 진행됩니다.
 
-> 교육 실습용 스타터입니다. 실서비스 운영에 필요한 기능(검색·분석·댓글 등)은
-> 의도적으로 담지 않았습니다.
+> 교육 실습용 스타터입니다. 홈 히어로는 나중에 모션그래픽 영상으로 채우는 자리입니다.
 
 ## 준비물
 
@@ -26,8 +25,10 @@ npm run dev
 site.config.ts        회사 정체성 (이름·태그라인·링크·CTA) — 가장 먼저 여러분 회사로 바꾸는 파일
 DESIGN.md             브랜드 디자인 정본 — 색·글꼴·사용 규칙
 content/posts/        블로그 글 (마크다운 1파일 = 1글)
+content/reports/      실적 보고 리포트 (마크다운)
 src/styles/tokens.css DESIGN.md 를 코드로 옮긴 디자인 토큰
 src/components/       Hero(히어로) · PostCard(글 카드) · CtaSlot(CTA 자리) · Header · Footer
+src/components/HeroMedia.tsx  홈 히어로 배경 — 여기에 영상을 넣습니다
 src/lib/posts.ts      글 읽기 (frontmatter 파싱·정렬·draft 제외)
 src/lib/publish.ts    발행 API 내부 로직
 src/app/api/posts/    발행 API 엔드포인트 (POST /api/posts)
@@ -61,6 +62,8 @@ curl -X POST https://{내-배포-주소}/api/posts \
   -H "Content-Type: application/json" \
   -d '{"title":"첫 자동 발행","description":"발행 API 테스트","content":"본문입니다."}'
 ```
+
+실적 보고를 올리려면 `"collection": "reports"` 를 함께 보냅니다(기본값은 `"posts"` = 블로그).
 
 | 응답 코드 | 의미 |
 | --- | --- |
