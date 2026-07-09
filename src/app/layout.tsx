@@ -22,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ko" className={`${inter.variable} ${notoSans.variable} ${notoSerif.variable}`}>
       <body className="min-h-screen flex flex-col">
         <Header />
-        <main className="w-full max-w-3xl mx-auto flex-1 px-5">{children}</main>
+        <main className="flex-1">{children}</main>
         <Footer />
       </body>
     </html>

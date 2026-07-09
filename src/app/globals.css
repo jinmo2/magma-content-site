@@ -40,3 +40,10 @@ body {
 .post-body img { @apply max-w-full rounded-ui my-6; }
 .post-body table { @apply w-full my-6 text-sm; }
 .post-body th, .post-body td { @apply border border-line px-3 py-2 text-left; }
+
+/* 에디토리얼 레이아웃 헬퍼 (rev2) */
+.container-page { @apply w-full max-w-[1080px] mx-auto px-5 sm:px-8; }
+.reading { @apply w-full max-w-[720px] mx-auto px-5 sm:px-8; }
+.eyebrow { @apply text-sm font-bold tracking-wide text-accent; }
+/* 풀뷰포트 히어로가 layout 컨테이너를 벗어나야 할 때 */
+.full-bleed { width: 100%; }
