@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import DashboardEmbed from "@/components/DashboardEmbed";
 import { getAll, getOne, renderMarkdown } from "@/lib/content";
 
 export const dynamicParams = false;
@@ -36,7 +37,7 @@ export default async function ReportPage(
         <h1 className="mt-3 font-display text-3xl font-bold leading-snug text-primary sm:text-4xl">{report.title}</h1>
         <p className="mt-4 text-lg text-ink-sub">{report.description}</p>
       </header>
-      {/* 7.5 BI 대시보드 임베드 슬롯: 리포트 본문에 <iframe> 대시보드를 넣을 자리 */}
+      {report.dashboardUrl && <DashboardEmbed url={report.dashboardUrl} title={`${report.title} 대시보드`} />}
       <div className="post-body" dangerouslySetInnerHTML={{ __html: html }} />
     </article>
   );

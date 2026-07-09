@@ -19,6 +19,7 @@ export interface ContentMeta {
   tags: string[];
   thumbnail?: string;
   period?: string; // reports 전용 — 보고 기간 라벨
+  dashboardUrl?: string; // reports 전용 — BI 대시보드 iframe URL
   draft: boolean;
 }
 
@@ -41,7 +42,7 @@ export function getAll(collection: Collection): ContentMeta[] {
     .map((f) => readDoc(collection, f))
     .filter((d): d is ContentDoc => d !== null && !d.draft)
     .sort((a, b) => (a.date === b.date ? (a.slug < b.slug ? 1 : -1) : a.date < b.date ? 1 : -1))
-    .map(({ content: _content, ...meta }) => meta);
+    .map(toMeta);
 }
 
 /** slug 로 문서 1건. draft 도 반환하므로 호출부에서 걸러야 한다. 없으면 null. */
@@ -73,6 +74,7 @@ function readDoc(collection: Collection, filename: string): ContentDoc | null {
       tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
       thumbnail: typeof data.thumbnail === "string" ? data.thumbnail : undefined,
       period: typeof data.period === "string" ? data.period : undefined,
+      dashboardUrl: typeof data.dashboardUrl === "string" ? data.dashboardUrl : undefined,
       draft: data.draft === true,
       content,
     };
@@ -85,4 +87,19 @@ function readDoc(collection: Collection, filename: string): ContentDoc | null {
 function toDateString(value: unknown): string {
   if (value instanceof Date) return value.toISOString().slice(0, 10);
   return String(value).slice(0, 10);
+}
+
+function toMeta(doc: ContentDoc): ContentMeta {
+  return {
+    collection: doc.collection,
+    slug: doc.slug,
+    title: doc.title,
+    description: doc.description,
+    date: doc.date,
+    tags: doc.tags,
+    thumbnail: doc.thumbnail,
+    period: doc.period,
+    dashboardUrl: doc.dashboardUrl,
+    draft: doc.draft,
+  };
 }

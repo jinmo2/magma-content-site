@@ -1,13 +1,8 @@
 import type { Metadata } from "next";
-import { Inter, Noto_Sans_KR, Noto_Serif_KR } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@config";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
-const notoSans = Noto_Sans_KR({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-noto-sans", display: "swap" });
-const notoSerif = Noto_Serif_KR({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-noto-serif", display: "swap" });
 
 export const metadata: Metadata = {
   title: {
@@ -19,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ko" className={`${inter.variable} ${notoSans.variable} ${notoSerif.variable}`}>
+    <html lang="ko">
       <body className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-1">{children}</main>

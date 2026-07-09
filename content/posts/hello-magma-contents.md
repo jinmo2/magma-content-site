@@ -3,6 +3,7 @@ title: "MAGMA를 시작하며 — 나이 드는 방식에 대하여"
 description: "억지로 젊어 보이려 하지 않는 옷. MAGMA가 만들고 싶은 것을 적습니다."
 date: 2026-07-01
 tags: [브랜드]
+thumbnail: /images/magma-journal-brand.png
 ---
 
 MAGMA는 3040 남성을 위한 옷을 만듭니다.

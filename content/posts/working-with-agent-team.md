@@ -3,6 +3,7 @@ title: "이번 시즌 무드 — 절제된 따뜻함"
 description: "차분한 깊이 위에 따뜻한 질감. 이번 시즌 방향을 정리합니다."
 date: 2026-07-06
 tags: [컬렉션]
+thumbnail: /images/magma-journal-collection.png
 ---
 
 이번 시즌의 방향은 절제된 따뜻함입니다.

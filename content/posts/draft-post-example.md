@@ -3,6 +3,7 @@ title: "다음 시즌 예고 (작성 중)"
 description: "draft 상태라 목록에 나타나지 않는 예시 글입니다."
 date: 2026-07-08
 tags: [예시]
+thumbnail: /images/magma-journal-collection.png
 draft: true
 ---
 

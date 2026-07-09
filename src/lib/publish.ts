@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { timingSafeEqual } from "crypto";
+import { randomBytes, timingSafeEqual } from "crypto";
 import { COLLECTIONS, Collection, contentHref } from "@/lib/content";
 
 export class PublishError extends Error {
@@ -60,7 +60,9 @@ interface ValidInput {
   tags: string[];
   slug?: string;
   date?: string;
+  thumbnail?: string;
   period?: string;
+  dashboardUrl?: string;
   draft: boolean;
 }
 
@@ -81,7 +83,11 @@ function validate(input: unknown): ValidInput {
     errors.date = "YYYY-MM-DD 형식";
   if (b.tags !== undefined && (!Array.isArray(b.tags) || b.tags.some((t) => typeof t !== "string")))
     errors.tags = "문자열 배열";
+  if (b.thumbnail !== undefined && (typeof b.thumbnail !== "string" || !isAssetPath(b.thumbnail)))
+    errors.thumbnail = "사이트 내부 경로 또는 http(s) URL";
   if (b.period !== undefined && typeof b.period !== "string") errors.period = "문자열 (예: 2026-Q2)";
+  if (b.dashboardUrl !== undefined && (typeof b.dashboardUrl !== "string" || !isDashboardUrl(b.dashboardUrl)))
+    errors.dashboardUrl = "http(s) URL 또는 로컬 개발 URL";
   if (b.draft !== undefined && typeof b.draft !== "boolean") errors.draft = "true 또는 false";
   if (Object.keys(errors).length > 0) throw new PublishError(422, { error: "검증 실패", fields: errors });
 
@@ -93,7 +99,9 @@ function validate(input: unknown): ValidInput {
     tags: (b.tags as string[] | undefined) ?? [],
     slug: b.slug as string | undefined,
     date: b.date as string | undefined,
+    thumbnail: b.thumbnail as string | undefined,
     period: b.period as string | undefined,
+    dashboardUrl: b.dashboardUrl as string | undefined,
     draft: b.draft === true,
   };
 }
@@ -109,8 +117,8 @@ function makeSlug(title: string, explicit?: string): string {
     .replace(/[\s_]+/g, "-")
     .replace(/-+/g, "-");
   if (!hadNonAscii && SLUG_RE.test(ascii) && ascii.length >= 3) return ascii;
-  const { compact, hhmm } = kstParts();
-  return `post-${compact}-${hhmm}`;
+  const { compact, hhmmss } = kstParts();
+  return `post-${compact}-${hhmmss}-${randomBytes(2).toString("hex")}`;
 }
 
 function kstParts() {
@@ -118,7 +126,7 @@ function kstParts() {
   return {
     date: iso.slice(0, 10),
     compact: iso.slice(0, 10).replaceAll("-", ""),
-    hhmm: iso.slice(11, 16).replace(":", ""),
+    hhmmss: iso.slice(11, 19).replaceAll(":", ""),
   };
 }
 
@@ -134,7 +142,9 @@ function buildMarkdown(p: Omit<ValidInput, "slug" | "date"> & { date: string }):
     `description: ${JSON.stringify(p.description)}`,
     `date: ${p.date}`,
     p.tags.length > 0 ? `tags: [${p.tags.map((t) => JSON.stringify(t)).join(", ")}]` : null,
+    p.thumbnail ? `thumbnail: ${JSON.stringify(p.thumbnail)}` : null,
     p.period ? `period: ${JSON.stringify(p.period)}` : null,
+    p.dashboardUrl ? `dashboardUrl: ${JSON.stringify(p.dashboardUrl)}` : null,
     p.draft ? "draft: true" : null,
     "---",
     "",
@@ -142,6 +152,20 @@ function buildMarkdown(p: Omit<ValidInput, "slug" | "date"> & { date: string }):
     "",
   ];
   return lines.filter((l): l is string => l !== null).join("\n");
+}
+
+function isAssetPath(value: string): boolean {
+  if (value.startsWith("/")) return !value.includes("..");
+  return isDashboardUrl(value);
+}
+
+function isDashboardUrl(value: string): boolean {
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" || url.protocol === "http:";
+  } catch {
+    return false;
+  }
 }
 
 async function commitToGitHub(collection: Collection, slug: string, md: string): Promise<string | undefined> {
