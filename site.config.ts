@@ -12,9 +12,9 @@ export interface SiteConfig {
 export const siteConfig: SiteConfig = {
   company: {
     name: "MAGMA",
-    tagline: "AI 팀이 만들고, 사람이 다듬는 콘텐츠",
+    tagline: "나이 드는 방식을, 다시 입다",
     description:
-      "MAGMA 콘텐츠 사업부는 AI 에이전트 팀과 함께 글을 만들고 발행하는 조직입니다. 과장하지 않고, 꾸준히 쌓는 것을 원칙으로 합니다.",
+      "억지로 젊어 보이려 애쓰지 않고, 자기답게 멋지게 나이 드는 3040 남성을 위한 옷. 유행보다 오래 입을 것을, 과장보다 단정함을 택합니다.",
   },
   links: {
     github: "https://github.com/dandacompany",

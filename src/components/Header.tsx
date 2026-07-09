@@ -9,6 +9,7 @@ export default function Header() {
           {siteConfig.company.name}
         </Link>
         <nav className="flex gap-6 text-sm text-ink-sub">
+          <Link href="/about" className="hover:text-primary">회사소개</Link>
           <Link href="/blog" className="hover:text-primary">블로그</Link>
           <Link href="/reports" className="hover:text-primary">실적</Link>
         </nav>
