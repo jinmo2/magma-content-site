@@ -12,9 +12,9 @@ export interface SiteConfig {
 export const siteConfig: SiteConfig = {
   company: {
     name: "MAGMA",
-    tagline: "나이 드는 방식을, 다시 입다",
+    tagline: "유행은 지나가도, 기본은 남습니다",
     description:
-      "억지로 젊어 보이려 애쓰지 않고, 자기답게 멋지게 나이 드는 3040 남성을 위한 옷. 유행보다 오래 입을 것을, 과장보다 단정함을 택합니다.",
+      "과장보다 단정함을, 유행보다 오래 입을 옷을. 3040 남성을 위해 시간이 지나도 유효한 기본을 만듭니다.",
   },
   links: {
     github: "https://github.com/dandacompany",

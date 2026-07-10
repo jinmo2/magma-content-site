@@ -19,11 +19,11 @@ export default function Home() {
           <div>
             <p className="eyebrow mb-3">브랜드</p>
             <h2 className="font-display text-3xl font-bold leading-snug text-primary">
-              {siteConfig.company.name} 는 나이 드는 방식을 다시 씁니다
+              {siteConfig.company.name}는 오래 입을 기본을 만듭니다
             </h2>
             <p className="mt-5 leading-relaxed text-ink-sub">
-              억지로 젊어 보이려 애쓰지 않고, 자기답게 멋지게 나이 드는 3040 남성을 위한 브랜드입니다.
-              과장하지 않는 단정함으로, 오래 입을 수 있는 옷을 만듭니다.
+              유행을 좇는 대신 과장 없는 단정함을 택합니다.
+              계절이 바뀌어도 다시 손이 가는 옷을, 3040 남성을 위해 만듭니다.
             </p>
           </div>
           <ImageSlot ratio="4/5" label="브랜드 비주얼" />
