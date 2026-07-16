@@ -1,7 +1,7 @@
 import { siteConfig } from "@config";
 
 /**
- * 6.6 「SNS 자동발행 + CTA」 확장 슬롯.
+ * 6.3 「Bluekiwi 하네스 도구 소개 (SNS발행)」 확장 슬롯.
  * site.config.ts 의 cta.enabled 가 false 인 동안 아무것도 렌더하지 않습니다.
  * 실습에서 enabled 를 켜고 label·href 를 채우면 이 버튼이 살아납니다.
  */

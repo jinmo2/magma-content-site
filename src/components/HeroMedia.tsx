@@ -7,7 +7,7 @@ import { siteConfig } from "@config";
  *   1) 모션그래픽을 만들어 public/hero.mp4 로 저장
  *   2) site.config.ts 에서 hero.video 를 "/hero.mp4" 로 (기본값은 null)
  * hero.video 가 null 이면 poster 이미지만으로 완전히 동작합니다.
- * → 6.7 「디자인 마감 — 히어로 모션」 실습.
+ * → 6.5 「모션그래픽 생성 — 히어로 모션」 실습.
  */
 export default function HeroMedia() {
   const { video, poster } = siteConfig.hero;
